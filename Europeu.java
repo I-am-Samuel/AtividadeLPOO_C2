@@ -15,6 +15,23 @@ public class Europeu extends Castelo{
     public void setNumPaladino(int numPaladino) {
         this.numPaladino = numPaladino;
     }
+
+    // Eu(Thiago) acredito que seja assim:
+    public boolean ataque(int numDado) {
+        numPaladino = numPaladino - numDado;
+
+        if (numPaladino < 0) {
+            if (super.ataque()) {
+                numPaladino += 10;
+                return true;
+            }
+            return false;
+
+        } else {
+            return false;
+        }
+    }
+
     // tentativa do metodo de Eliminar
     /*public boolean elimina(Double dado){
         if (dado > numPaladino && dado > 0) {
@@ -27,5 +44,9 @@ public class Europeu extends Castelo{
             return false;
         }
     } */
-    
+
+    @Override
+    public void situacao() {
+        System.out.println("\nNome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Paladinos: " + numPaladino);
+    }
 }

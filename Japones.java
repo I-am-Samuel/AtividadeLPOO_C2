@@ -15,4 +15,25 @@ public class Japones extends Castelo {
     public void setNumSamurai(int numSamurai) {
         this.numSamurai = numSamurai;
     }
+
+    // Eu(Thiago) acredito que seja assim:
+    public boolean ataque(int numDado) {
+        numSamurai = numSamurai - numDado;
+
+        if (numSamurai < 0) {
+            if (super.ataque()) {
+                numSamurai += 15;
+                return true;
+            }
+            return false;
+
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void situacao() {
+        System.out.println("\nNome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Samurais: " + numSamurai);
+    }
 }
