@@ -38,8 +38,8 @@ public abstract class Castelo {
     }
 
     // Vale a pena conferir se é isso mesmo (acredito que seja isso mesmo)
-    public void situacao(){
-        System.out.println("\nnome: " + nome + " defesa: " + defesa + " vida: " + pontosVida);
+    public String situacao(){
+        return "Nome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida;
     }
 
     // metodo de ataque tá show

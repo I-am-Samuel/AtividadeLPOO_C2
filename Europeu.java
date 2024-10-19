@@ -46,7 +46,7 @@ public class Europeu extends Castelo{
     } */
 
     @Override
-    public void situacao() {
-        System.out.println("\nNome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Paladinos: " + numPaladino);
+    public String situacao() {
+        return "Nome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Paladinos: " + numPaladino;
     }
 }

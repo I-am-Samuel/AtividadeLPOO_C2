@@ -33,7 +33,7 @@ public class Japones extends Castelo {
     }
 
     @Override
-    public void situacao() {
-        System.out.println("\nNome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Samurais: " + numSamurai);
+    public String situacao() {
+        return "Nome: " + nome + ", Defesa: " + defesa + ", Vida: " + pontosVida + ", Número de Samurais: " + numSamurai;
     }
 }
