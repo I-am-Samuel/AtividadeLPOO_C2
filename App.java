@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Random;
 import java.io.IOException;
 
@@ -11,19 +11,24 @@ public class App {
         return valorDado;
     }
     public static void main(String[] args) throws IOException, InterruptedException {
-        ArrayList<Castelo> listaDeCastelos = new ArrayList<>();
+        Fila filaDeCastelo = new Fila();
         int numDado, numJogadorAtual = 0, numJogadorAlvo = 0;
         Castelo casteloAtual, casteloAlvo;
         
-        listaDeCastelos.add(new Japones(2, 2, "C1", 15));
-        listaDeCastelos.add(new Japones(2, 2, "C2", 15));
-        listaDeCastelos.add(new Europeu(3, 2, "C3", 10));
-        listaDeCastelos.add(new Europeu(3, 2, "C4", 10));
+        filaDeCastelo.adicionar(new Japones(2, 2, "C1", 15));
+        filaDeCastelo.adicionar(new Japones(2, 2, "C2", 15));
+        filaDeCastelo.adicionar(new Europeu(3, 2, "C3", 10));
+        filaDeCastelo.adicionar(new Europeu(3, 2, "C4", 10));
 
-        casteloAtual = listaDeCastelos.get(numJogadorAtual);
+        while (filaDeCastelo.size() > 1) {
+            casteloAtual = filaDeCastelo.remover();
 
-        while (listaDeCastelos.size() > 1) {
-            casteloAtual = listaDeCastelos.get(numJogadorAtual);
+            if (casteloAtual instanceof Europeu) {
+                casteloAtual = (Europeu)casteloAtual;
+            
+            } else {
+                casteloAtual = (Japones)casteloAtual;
+            }
 
             MenuFormatter.titulo("Vez do Castelo: " + casteloAtual.getNome());         
             numDado = girarDado();
@@ -31,12 +36,11 @@ public class App {
             System.out.println("| O castelo '" + casteloAtual.getNome() + "' tirou " + numDado + " no dado.");
 
             if (numDado != 0) {
-                while (numJogadorAlvo == numJogadorAtual) {
-                    numJogadorAlvo = random.nextInt(listaDeCastelos.size()-1);
-                }
-                casteloAlvo = listaDeCastelos.get(numJogadorAlvo);
+                numJogadorAlvo = random.nextInt(filaDeCastelo.size()-1);
+                casteloAlvo = filaDeCastelo.getCastelo(numJogadorAlvo);
 
                 System.out.println("| O Castelo '" + casteloAtual.getNome() + "' irá atacar o Castelo '" + casteloAlvo.getNome() + "'.");
+                MenuFormatter.linha();
 
                 if (casteloAtual.ataque()) {
                     String msgDeAtaque = "| Catelo '" + casteloAtual.getNome() + "' atacou o Castelo '" + casteloAlvo.getNome() + "'." 
@@ -59,6 +63,20 @@ public class App {
 
                     if (casteloAlvo.getPontosVida() <= 0) {
                         MenuFormatter.msgTerminalINFO("CASTELO " + casteloAlvo.getNome() + " DESTRUÍDO.");
+
+                        Fila aux = new Fila();
+                        Castelo castelo;
+                        for (int i = 0; i < filaDeCastelo.size(); i++) {
+                            castelo = filaDeCastelo.remover();
+                            if (!castelo.getNome().equals(casteloAlvo.getNome())) {
+                                aux.adicionar(castelo);
+                            }
+                        }
+
+                        for (int f = 0; f < aux.size(); f++) {
+                            filaDeCastelo.adicionar(aux.remover());
+                        }
+                
                     }
 
                 } else {
@@ -69,22 +87,25 @@ public class App {
                 MenuFormatter.msgTerminalINFO(casteloAtual.getNome() + " Passou a vez.");
             }
 
+            filaDeCastelo.adicionar(casteloAtual);
+
+
             if (numJogadorAtual == 3) {
                 numJogadorAtual = 0;
-                numJogadorAlvo = 0;
-
+                numJogadorAlvo = numJogadorAtual;
+                
             } else {
                 numJogadorAtual += 1;
-                numJogadorAlvo += 1;
-
+                numJogadorAlvo = numJogadorAtual;
+                
             }
-
-
-            MenuFormatter.delay(2);
-            MenuFormatter.limparTerminal();
+            
+            MenuFormatter.linha();
+            // MenuFormatter.delay(2);
+            // MenuFormatter.limparTerminal();
         }
 
         // mensagem do ganhador
-        MenuFormatter.msgTerminalINFO("CASTELO " + listaDeCastelos.get(0).getNome() + " VENCEDOR");
+        MenuFormatter.msgTerminalINFO("CASTELO " + filaDeCastelo.remover().getNome() + " VENCEDOR");
     }
 }

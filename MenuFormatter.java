@@ -45,15 +45,13 @@ public class MenuFormatter {
 
 
     public static void msgTerminalINFO(String msg) {
-		linha();
     	centralizar("[INFO] - " + msg);
-    	linha();
+
     }
 
     public static void msgTerminalERROR(String msg) {
-		linha();
     	centralizar("[ERRO] - " + msg);
-    	linha();
+
     }
 
 
