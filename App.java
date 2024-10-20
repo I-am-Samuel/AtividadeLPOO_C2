@@ -12,7 +12,7 @@ public class App {
     }
     public static void main(String[] args) throws IOException, InterruptedException {
         Fila filaDeCastelo = new Fila();
-        int numDado, numJogadorAtual = 0, numJogadorAlvo = 0;
+        int numDado, numJogadorAlvo = 0;
         Castelo casteloAtual, casteloAlvo;
         
         filaDeCastelo.adicionar(new Japones(2, 2, "C1", 15));
@@ -88,18 +88,8 @@ public class App {
             }
 
             filaDeCastelo.adicionar(casteloAtual);
+            numJogadorAlvo = 0;
 
-
-            if (numJogadorAtual == 3) {
-                numJogadorAtual = 0;
-                numJogadorAlvo = numJogadorAtual;
-                
-            } else {
-                numJogadorAtual += 1;
-                numJogadorAlvo = numJogadorAtual;
-                
-            }
-            
             MenuFormatter.linha();
             // MenuFormatter.delay(2);
             // MenuFormatter.limparTerminal();

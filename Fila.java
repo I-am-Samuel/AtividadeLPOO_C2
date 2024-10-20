@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class Fila {
     private LinkedList<Castelo> fila = new LinkedList<Castelo>();
 
-    public Fila(){
+    public Fila() {
     }
 
     public Castelo getCastelo(int index) {
@@ -11,7 +11,7 @@ public class Fila {
     }
 
     public void adicionar(Castelo castelo) {
-        fila.addFirst(castelo);
+        fila.addLast(castelo);
     }
 
     public Castelo remover() {
