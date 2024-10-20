@@ -36,7 +36,7 @@ public class App {
             System.out.println("| O castelo '" + casteloAtual.getNome() + "' tirou " + numDado + " no dado.");
 
             if (numDado != 0) {
-                numJogadorAlvo = random.nextInt(filaDeCastelo.size()-1);
+                numJogadorAlvo = random.nextInt(filaDeCastelo.size());
                 casteloAlvo = filaDeCastelo.getCastelo(numJogadorAlvo);
 
                 System.out.println("| O Castelo '" + casteloAtual.getNome() + "' irá atacar o Castelo '" + casteloAlvo.getNome() + "'.");
@@ -66,17 +66,16 @@ public class App {
 
                         Fila aux = new Fila();
                         Castelo castelo;
-                        for (int i = 0; i < filaDeCastelo.size(); i++) {
+                        for (int i = 0; i < filaDeCastelo.size(); ) {
                             castelo = filaDeCastelo.remover();
-                            if (!castelo.getNome().equals(casteloAlvo.getNome())) {
+                            if (!castelo.equals(casteloAlvo)) {
                                 aux.adicionar(castelo);
                             }
                         }
 
-                        for (int f = 0; f < aux.size(); f++) {
+                        for (int f = 0; f < aux.size(); ) {
                             filaDeCastelo.adicionar(aux.remover());
                         }
-                
                     }
 
                 } else {
@@ -91,11 +90,10 @@ public class App {
             numJogadorAlvo = 0;
 
             MenuFormatter.linha();
-            // MenuFormatter.delay(2);
-            // MenuFormatter.limparTerminal();
+            MenuFormatter.delay(2);
+            MenuFormatter.limparTerminal();
         }
 
-        // mensagem do ganhador
-        MenuFormatter.msgTerminalINFO("CASTELO " + filaDeCastelo.remover().getNome() + " VENCEDOR");
+        MenuFormatter.msgTerminalINFO("CASTELO " + filaDeCastelo.getCastelo(0).getNome() + " VENCEDOR");
     }
 }
